@@ -1,0 +1,34 @@
+
+server_ip = "192.168.42.110"
+worker_ip = "192.168.42.111"
+
+system 'mkdir', '-p', './shared'
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/centos8"
+  config.vm.define "artamS" do |master_config|
+    master_config.vm.hostname = "artamS"
+    master_config.vm.synced_folder "./shared", "/vagrant_shared"
+    master_config.vm.network  "private_network" , ip: server_ip
+    master_config.vm.provider "virtualbox" do |v|
+      v.memory = 1024
+      v.cpus = 1
+      v.name = "artamS"
+    end
+   master_config.vm.provision "shell", path: './scripts/server_script.sh'
+  end
+
+  config.vm.define "artamSW" do |worker_config|
+    worker_config.vm.hostname = "artamSW"
+    worker_config.vm.synced_folder "./shared", "/vagrant_shared"
+    worker_config.vm.network  "private_network" , ip: worker_ip
+    worker_config.vm.provider "virtualbox" do |v|
+      v.memory = 1024
+      v.cpus = 1
+      v.name = "artamSW"
+    end
+    
+    worker_config.vm.provision "shell", path: './scripts/worker_script.sh'
+  end
+
+end
