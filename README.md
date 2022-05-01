@@ -1,3 +1,5 @@
+[![alzaynou's 42 Inception-of-Things Score](https://badge42.vercel.app/api/v2/cl2mjk5oo009709i7yb0upwvb/project/2522262)](https://github.com/JaeSeoKim/badge42)
+
 # IOT-1337
 This project aims to deepen your knowledge by making you use K3d and K3s with Vagrant.
 
